@@ -1,6 +1,6 @@
 /*
   Butter.js
-  http://github.com/brandly/butter
+  http://github.com/brandly/butter.js
 */
 
 (function () {
