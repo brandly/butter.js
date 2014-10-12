@@ -6,17 +6,8 @@
 (function () {
   var validModes = ['black', 'bright', 'white'];
 
-  function Butter(canvas, options) {
+  function Butter(options) {
     options || (options = {});
-
-    this.canvas = canvas;
-    if (!this.canvas) {
-      throw 'Cannot initialize Butter without a <canvas>';
-    }
-    this.context = this.canvas.getContext('2d');
-
-    this.height = options.height || this.canvas.height;
-    this.width = options.width || this.canvas.width;
 
     var defaultMode = validModes[0];
     this.mode = options.mode || defaultMode;
@@ -25,18 +16,27 @@
       this.mode = defaultMode;
     }
 
-    this.iterations = options.iterations || 1;
-
-    this.blackValue = -10000000;
-    this.whiteValue = -6000000;
-    this.brightnessValue = 30;
+    this.blackValue = options.blackValue || -10000000;
+    this.whiteValue = options.whiteValue || -6000000;
+    this.brightnessValue = options.brightnessValue || 30;
   }
 
-  Butter.prototype.sort = function () {
+  Butter.prototype.sort = function (canvas, iterations) {
+    this.canvas = canvas;
+    if (!this.canvas) {
+      throw 'Butter needs a <canvas> to sort';
+    }
+    this.context = this.canvas.getContext('2d');
+
+    this.height = this.canvas.height;
+    this.width = this.canvas.width;
+
+    iterations || (iterations = 1);
+
     // Read in the image currently on the canvas
     this.imageData = this.context.getImageData(0, 0, this.width, this.height);
 
-    for (var i = 0; i < this.iterations; i++) {
+    for (var i = 0; i < iterations; i++) {
 
       for (var column = 0; column < this.width; column++) {
         this.sortColumn(column);

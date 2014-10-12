@@ -16,8 +16,8 @@ function render(img) {
 
   context.drawImage(img, 0, 0);
 
-  var butter = new Butter(canvas);
-  butter.sort();
+  var butter = new Butter();
+  butter.sort(canvas);
 }
 
 setImage('wave.jpg');
