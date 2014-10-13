@@ -3,24 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
+    <title>butter</title>
+    <meta name="description" content="pixel sorting for the internet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" href="./favicon.ico">
   </head>
   <body>
-    <canvas id="sort-pixels"></canvas>
-    <input type="file" id="file-upload">
-    <button id="reset-img">reset</button>
-    <select name="mode" id="mode-select">
-      <option value="black" selected>black</option>
-      <option value="bright">bright</option>
-      <option value="white">white</option>
-    </select>
-    <input id="threshold" type="range" value="0" min="0" max="0">
-    <button id="buttery">buttery</button>
+    <div class="content">
+      <canvas id="sort-pixels"></canvas>
+      <input type="file" id="file-upload">
+      <button id="reset-img">reset</button>
+      <select name="mode" id="mode-select">
+        <option value="black" selected>black</option>
+        <option value="bright">bright</option>
+        <option value="white">white</option>
+      </select>
+      <input id="threshold" type="range" value="0" min="0" max="0">
+      <button id="buttery">buttery</button>
+    </div>
     <script src="butter.js"></script>
     <script src="app.js"></script>
   </body>
