@@ -1,7 +1,9 @@
 
 var canvas = document.getElementById('sort-pixels'),
     context = canvas.getContext('2d'),
-    button = document.getElementById('buttery');
+    modeSelect = document.getElementById('mode-select'),
+    button = document.getElementById('buttery'),
+    butter = new Butter();
 
 function setImage(uri){
   img = new Image();
@@ -20,7 +22,10 @@ function render(img) {
 
 setImage('wave.jpg');
 
+modeSelect.addEventListener('change', function () {
+  butter.mode = modeSelect.value;
+});
+
 button.addEventListener('click', function () {
-  var butter = new Butter();
   butter.sort(canvas);
 });
