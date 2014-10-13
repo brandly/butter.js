@@ -16,9 +16,11 @@
       this.mode = defaultMode;
     }
 
-    this.blackValue = options.blackValue || -10000000;
-    this.whiteValue = options.whiteValue || -6000000;
-    this.brightnessValue = options.brightnessValue || 30;
+    this.threshold = {
+      black: options.blackThreshold || -10000000,
+      white: options.whiteThreshold || -6000000,
+      bright: options.brightThreshold || 30
+    };
   }
 
   Butter.prototype.sort = function (canvas, iterations) {
@@ -48,6 +50,10 @@
     }
 
     this.context.putImageData(this.imageData, 0, 0);
+  };
+
+  Butter.prototype.setThreshold = function setThreshold(value) {
+    this.threshold[this.mode] = value;
   };
 
   Butter.prototype.sortColumn = function sortColumn(x) {
@@ -179,7 +185,7 @@
 
   Butter.prototype.getFirstNotBlackX = function getFirstNotBlackX(x, y) {
     // Loop until we find a match
-    for ( ; this.getPixelValue(x, y) < this.blackValue; x++) {
+    for ( ; this.getPixelValue(x, y) < this.threshold.black; x++) {
       // Oh no, we've reached the edge!
       if (x >= this.width) return -1;
     }
@@ -190,7 +196,7 @@
   Butter.prototype.getNextBlackX = function getNextBlackX(x, y) {
     // We want the _next_ one
     x += 1;
-    for ( ; this.getPixelValue(x, y) > this.blackValue; x++) {
+    for ( ; this.getPixelValue(x, y) > this.threshold.black; x++) {
       if (x >= this.width) return this.width - 1;
     }
     return x;
@@ -198,7 +204,7 @@
 
 
   Butter.prototype.getFirstBrightX = function getFirstBrightX(x, y) {
-    for ( ; this.getPixelBrightness(x, y) < this.brightnessValue; x++) {
+    for ( ; this.getPixelBrightness(x, y) < this.threshold.bright; x++) {
       if (x >= this.width) return -1;
     }
     return x;
@@ -206,7 +212,7 @@
 
   Butter.prototype.getNextDarkX = function getNextDarkX(x, y) {
     x += 1;
-    for ( ; this.getPixelBrightness(x, y) > this.brightnessValue; x++) {
+    for ( ; this.getPixelBrightness(x, y) > this.threshold.bright; x++) {
       if (x >= this.width) return this.width - 1;
     }
     return x;
@@ -214,7 +220,7 @@
 
 
   Butter.prototype.getFirstNotWhiteX = function getFirstNotWhiteX(x, y) {
-    for ( ; this.getPixelValue(x, y) > this.whiteValue; x++) {
+    for ( ; this.getPixelValue(x, y) > this.threshold.white; x++) {
       if (x >= this.width) return -1;
     }
     return x;
@@ -222,7 +228,7 @@
 
   Butter.prototype.getNextWhiteX = function getNextWhiteX(x, y) {
     x += 1;
-    for ( ; this.getPixelValue(x, y) < this.whiteValue; x++) {
+    for ( ; this.getPixelValue(x, y) < this.threshold.white; x++) {
       if (x >= this.width) return this.width - 1;
     }
     return x;
@@ -230,7 +236,7 @@
 
 
   Butter.prototype.getFirstNotBlackY = function getFirstNotBlackY(x, y) {
-    for ( ; this.getPixelValue(x, y) < this.blackValue; y++) {
+    for ( ; this.getPixelValue(x, y) < this.threshold.black; y++) {
       if (y >= this.height) return -1;
     }
     return y;
@@ -238,7 +244,7 @@
 
   Butter.prototype.getNextBlackY = function getNextBlackY(x, y) {
     y += 1;
-    for ( ; this.getPixelValue(x, y) > this.blackValue; y++) {
+    for ( ; this.getPixelValue(x, y) > this.threshold.black; y++) {
       if (y >= this.height) return this.height - 1;
     }
     return y;
@@ -246,7 +252,7 @@
 
 
   Butter.prototype.getFirstBrightY = function getFirstBrightY(x, y) {
-    for ( ; this.getPixelBrightness(x, y) < this.brightnessValue; y++) {
+    for ( ; this.getPixelBrightness(x, y) < this.threshold.bright; y++) {
       if (y >= this.height) return -1;
     }
     return y;
@@ -254,7 +260,7 @@
 
   Butter.prototype.getNextDarkY = function getNextDarkY(x, y) {
     y += 1;
-    for ( ; this.getPixelBrightness(x, y) > this.brightnessValue; y++) {
+    for ( ; this.getPixelBrightness(x, y) > this.threshold.bright; y++) {
       if (y >= this.height) return this.height - 1;
     }
     return y;
@@ -262,7 +268,7 @@
 
 
   Butter.prototype.getFirstNotWhiteY = function getFirstNotWhiteY(x, y) {
-    for ( ; this.getPixelValue(x, y) > this.whiteValue; y++) {
+    for ( ; this.getPixelValue(x, y) > this.threshold.white; y++) {
       if (y >= this.height) return -1;
     }
     return y;
@@ -270,7 +276,7 @@
 
   Butter.prototype.getNextWhiteY = function getNextWhiteY(x, y) {
     y += 1;
-    for ( ; this.getPixelValue(x, y) < this.whiteValue; y++) {
+    for ( ; this.getPixelValue(x, y) < this.threshold.white; y++) {
       if (y >= this.height) return this.height - 1;
     }
     return y;

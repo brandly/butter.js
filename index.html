@@ -12,6 +12,14 @@
   </head>
   <body>
     <canvas id="sort-pixels"></canvas>
+    <input type="file" id="file-upload">
+    <button id="reset-img">reset</button>
+    <select name="mode" id="mode-select">
+      <option value="black" selected>black</option>
+      <option value="bright">bright</option>
+      <option value="white">white</option>
+    </select>
+    <input id="threshold" type="range" value="0" min="0" max="0">
     <button id="buttery">buttery</button>
     <script src="butter.js"></script>
     <script src="app.js"></script>
