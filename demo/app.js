@@ -1,12 +1,13 @@
 
 var canvas = document.getElementById('sort-pixels'),
     context = canvas.getContext('2d'),
+    fileInput = document.getElementById('file-upload'),
     modeSelect = document.getElementById('mode-select'),
     resetButton = document.getElementById('reset-img'),
     butterButton = document.getElementById('buttery'),
     threshold = document.getElementById('threshold'),
     butter = new Butter(),
-    img;
+    img = new Image();
 
 var thresholdSettings = {
   black: {
@@ -26,15 +27,14 @@ var thresholdSettings = {
   }
 };
 
-function setImage(uri){
-  img = new Image();
+function setImageURL(url){
   img.onload = renderImage
-  img.src = uri;
+  img.src = url;
 }
 
 function renderImage() {
-  canvas.width = 800;
-  canvas.height = 600;
+  canvas.width = img.width;
+  canvas.height = img.height;
   context.drawImage(img, 0, 0);
 }
 
@@ -49,7 +49,18 @@ function updateThresholdRange() {
 }
 
 updateThresholdRange();
-setImage('wave.jpg');
+setImageURL('wave.jpg');
+
+fileInput.addEventListener('change', function (event) {
+  var target = event.target || window.event.srcElement,
+      files = target.files,
+      reader = new FileReader();
+
+  reader.onload = function () {
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(files[0]);
+});
 
 modeSelect.addEventListener('change', function () {
   butter.mode = modeSelect.value;
