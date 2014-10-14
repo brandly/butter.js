@@ -103,10 +103,6 @@ input[type="radio"]:checked + .big-n-beautiful {
   background-color: #FFE01B;
 }
 
-input[type="range"] {
-  width: 100%;
-}
-
 
 .big-n-beautiful {
   font-size: 24px;
@@ -122,8 +118,8 @@ input[type="range"] {
   background-color: #C3AA0A;
 }
 
-#threshold {
-  max-width: 90%;
+.not-full-width {
+  width: 90%;
 }
 
 #buttery {
