@@ -59,12 +59,17 @@ fileInput.addEventListener('change', function (event) {
   reader.onload = function () {
     img.src = reader.result;
   };
-  reader.readAsDataURL(files[0]);
+
+  if (files.length) {
+    reader.readAsDataURL(files[0]);
+  }
 });
 
-modeSelect.addEventListener('change', function () {
-  butter.mode = modeSelect.value;
-  updateThresholdRange();
+Array.prototype.forEach.call(document['butter-form'].mode, function (radio) {
+  radio.addEventListener('click', function () {
+    butter.mode = this.value;
+    updateThresholdRange();
+  });
 });
 
 threshold.addEventListener('input', function () {
@@ -73,10 +78,12 @@ threshold.addEventListener('input', function () {
   thresholdSettings[butter.mode] = newValue;
 })
 
-resetButton.addEventListener('click', function () {
+resetButton.addEventListener('click', function (e) {
+  e.preventDefault();
   renderImage();
 });
 
-butterButton.addEventListener('click', function () {
+butterButton.addEventListener('click', function (e) {
+  e.preventDefault();
   butter.sort(canvas);
 });
