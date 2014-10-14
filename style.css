@@ -18,7 +18,7 @@ button {
 
 header {
   padding: 24px 0;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   background-color: #FFE01B;
   text-shadow: 3px 2px #C3AA0A;
   border-bottom: 2px solid #C3AA0A;
@@ -38,7 +38,7 @@ tr {
 }
 
 td {
-  padding-bottom: 24px;
+  padding-bottom: 32px;
 }
 
 
@@ -57,7 +57,7 @@ td {
 #sort-pixels {
   max-width: 100%;
   border: 2px solid #C3AA0A;
-  margin: 24px 0;
+  margin: 32px 0;
 }
 
 
@@ -129,7 +129,7 @@ input[type="radio"]:checked + .big-n-beautiful {
 #buttery {
   font-size: 32px;
   line-height: 42px;
-  padding: 12px 24px;
+  padding: 12px 32px;
 }
 
 #reset-img {
@@ -147,4 +147,9 @@ input[type="radio"]:checked + .big-n-beautiful {
 .text-button:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.github {
+  width: 64px;
+  margin: 32px 0;
 }
