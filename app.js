@@ -35,7 +35,7 @@ function setImageURL(url){
 function renderImage() {
   canvas.width = img.width;
   canvas.height = img.height;
-  alert('RENDERING IMAGE');
+  alert('IMG SIZE: ' + img.width + ' x ' + img.height);
   context.drawImage(img, 0, 0);
 }
 
