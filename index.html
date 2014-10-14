@@ -7,21 +7,59 @@
     <meta name="description" content="pixel sorting for the internet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
+    <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" href="./favicon.ico">
   </head>
   <body>
+    <header>
+      <h1>Butter</h1>
+    </header>
     <div class="content">
+      <div class="inner-content">
+        <div class="file-wrapper big-n-beautiful comfy">
+          select a photo
+          <input type="file" id="file-upload">
+        </div>
+      </div>
+
       <canvas id="sort-pixels"></canvas>
-      <input type="file" id="file-upload">
-      <button id="reset-img">reset</button>
-      <select name="mode" id="mode-select">
-        <option value="black" selected>black</option>
-        <option value="bright">bright</option>
-        <option value="white">white</option>
-      </select>
-      <input id="threshold" type="range" value="0" min="0" max="0">
-      <button id="buttery">buttery</button>
+
+      <form class="inner-content" name="butter-form">
+        <table>
+          <tr>
+            <td width="33%">
+              <input id="mode-black" value="black" type="radio" name="mode" checked="checked">
+              <label for="mode-black" class="big-n-beautiful subtle comfy-vertical">black</label>
+            </td>
+
+            <td width="33%">
+              <input id="mode-bright" value="bright" type="radio" name="mode">
+              <label for="mode-bright" class="big-n-beautiful subtle comfy-vertical">bright</label>
+            </td>
+
+            <td width="33%">
+              <input id="mode-white" value="white" type="radio" name="mode">
+              <label for="mode-white" class="big-n-beautiful subtle comfy-vertical">white</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="3">
+              <input id="threshold" type="range" value="0" min="0" max="0">
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="3">
+              <button type="button" id="buttery" class="big-n-beautiful comfy">spread</button>
+              <br>
+              <button type="button" id="reset-img" class="text-button">reset image</button>
+            </td>
+          </tr>
+        </table>
+      </form>
     </div>
     <script src="butter.js"></script>
     <script src="app.js"></script>

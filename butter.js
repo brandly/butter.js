@@ -112,8 +112,9 @@
 
   Butter.prototype.getRangesForColumn = function getRangesForColumn(x) {
     var ranges = [],
-        start = 0
-        end = 0;
+        start = 0,
+        end = 0,
+        findFirst, findNext;
 
     switch(this.mode) {
       case 'black':
@@ -146,7 +147,7 @@
 
   Butter.prototype.getRangesForRow = function getRangesForRow(y) {
     var ranges = [],
-        start = 0
+        start = 0,
         end = 0,
         findFirst, findNext;
 

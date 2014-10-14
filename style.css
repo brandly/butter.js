@@ -1,8 +1,148 @@
 
+body {
+  font-family: 'Patua One', cursive;
+  background-color: #5B2B00;
+  color: white;
+  text-align: center;
+  min-height: 100%;
+}
+
+button {
+  font-family: 'Patua One', cursive;
+}
+
+header {
+  padding: 24px 0;
+  margin-bottom: 32px;
+  background-color: #FFE01B;
+  text-shadow: 3px 2px #C3AA0A;
+  border-bottom: 2px solid #C3AA0A;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 62px;
+}
+
+table {
+  width: 100%;
+}
+
+tr {
+  width: 100%;
+}
+
+td {
+  padding: 16px 0;
+}
+
+
 .content {
+  margin: 0 auto;
+  width: 900px;
+  max-width: 100%;
+}
+
+.inner-content {
+  margin: 0 auto;
+  width: 500px;
   max-width: 100%;
 }
 
 #sort-pixels {
   max-width: 100%;
+  border: 2px solid #C3AA0A;
+  margin: 24px 0;
+}
+
+
+.form-section {
+  margin: 18px auto;
+}
+
+.file-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.file-wrapper > input[type="file"] {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0;
+}
+
+
+label, input {
+  cursor: pointer;
+}
+
+label {
+  display: inline-block;
+  width: 95%;
+}
+
+.comfy {
+  padding: 12px;
+}
+
+.comfy-vertical {
+  padding: 12px 0;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + .big-n-beautiful {
+  background-color: #FFE01B;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+
+.big-n-beautiful {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.02em;
+  background-color: #FFE01B;
+  text-shadow: 2px 2px #C3AA0A;
+  border: 2px solid #C3AA0A;
+  color: white;
+}
+
+.big-n-beautiful.subtle {
+  background-color: #C3AA0A;
+}
+
+#threshold {
+  max-width: 90%;
+}
+
+#buttery {
+  font-size: 32px;
+  line-height: 42px;
+  padding: 12px 24px;
+}
+
+#reset-img {
+  margin: 12px 0;
+}
+
+.text-button {
+  border: none;
+  background-color: transparent;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;;
+  color: white;
+  font-size: 16px;
+}
+
+.text-button:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
