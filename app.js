@@ -58,6 +58,7 @@ fileInput.addEventListener('change', function (event) {
 
   reader.onload = function () {
     img.src = reader.result;
+    renderImage();
   };
 
   if (files.length) {
