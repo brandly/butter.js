@@ -5,6 +5,8 @@ body {
   color: white;
   text-align: center;
   min-height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 button {
