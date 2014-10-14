@@ -18,7 +18,7 @@ button {
 
 header {
   padding: 24px 0;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   background-color: #FFE01B;
   text-shadow: 3px 2px #C3AA0A;
   border-bottom: 2px solid #C3AA0A;
@@ -38,7 +38,7 @@ tr {
 }
 
 td {
-  padding: 16px 0;
+  padding-bottom: 24px;
 }
 
 
