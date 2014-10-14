@@ -153,3 +153,30 @@ input[type="radio"]:checked + .big-n-beautiful {
   width: 64px;
   margin: 32px 0;
 }
+
+input[type='range'] {
+  -webkit-appearance: none;
+  background-color: #C3AA0A;
+  height: 30px;
+  vertical-align: middle;
+}
+
+input[type='range']::-moz-range-track {
+  -moz-appearance: none;
+  background-color: #C3AA0A;
+  height: 30px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  background-color: #FFE01B;
+  height: 25px;
+  width: 25px;
+}
+
+input[type='range']::-moz-range-thumb {
+  -moz-appearance: none;
+  background-color: #FFE01B;
+  height: 25px;
+  width: 25px;
+}
