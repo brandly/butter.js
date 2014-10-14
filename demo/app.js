@@ -7,7 +7,8 @@ var canvas = document.getElementById('sort-pixels'),
     butterButton = document.getElementById('buttery'),
     threshold = document.getElementById('threshold'),
     butter = new Butter(),
-    img = new Image();
+    img,
+    resetImage;
 
 var thresholdSettings = {
   black: {
@@ -27,15 +28,22 @@ var thresholdSettings = {
   }
 };
 
-function setImageURL(url){
-  img.onload = renderImage
+function setImageURL(url) {
+  img = new Image();
+  img.onload = renderImage;
+  resetImage = renderImage;
   img.src = url;
 }
 
 function renderImage() {
-  canvas.width = img.width;
-  canvas.height = img.height;
-  context.drawImage(img, 0, 0);
+  var width = Math.min(900, img.width),
+      height = (width / img.width) * img.height;
+
+  canvas.width = width;
+  canvas.height = height;
+
+  context.drawImage(img, 0, 0, width, height);
+  img.onload = null;
 }
 
 function getThreshold() {
@@ -56,7 +64,9 @@ fileInput.addEventListener('change', function (event) {
       files = target.files,
       reader = new FileReader();
 
+  img = new Image();
   reader.onload = function () {
+    img.onload = renderImage;
     img.src = reader.result;
   };
 
@@ -80,7 +90,7 @@ threshold.addEventListener('input', function () {
 
 resetButton.addEventListener('click', function (e) {
   e.preventDefault();
-  renderImage();
+  resetImage();
 });
 
 butterButton.addEventListener('click', function (e) {
