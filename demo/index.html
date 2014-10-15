@@ -20,14 +20,14 @@
       <div class="inner-content">
         <div class="file-wrapper big-n-beautiful comfy not-full-width">
           select a photo
-          <input type="file" id="file-upload">
+          <input type="file" id="file-upload" accept="image/*">
         </div>
       </div>
 
       <canvas id="sort-pixels"></canvas>
 
       <form class="inner-content" name="butter-form">
-        <table>
+        <table class="not-full-width">
           <tr>
             <td width="33%">
               <input id="mode-black" value="black" type="radio" name="mode" checked="checked">
@@ -47,7 +47,7 @@
 
           <tr>
             <td colspan="3">
-              <input class="not-full-width" id="threshold" type="range" value="0" min="0" max="0">
+              <input id="threshold" type="range" value="0" min="0" max="0">
             </td>
           </tr>
 
