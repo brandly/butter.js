@@ -46,6 +46,10 @@ function renderImage() {
   context.drawImage(img, 0, 0, width, height);
   img.onload = null;
 
+  renderCanvasToImage()
+}
+
+function renderCanvasToImage() {
   destination.src = canvas.toDataURL("image/png");
 }
 
@@ -99,4 +103,5 @@ resetButton.addEventListener('click', function (e) {
 butterButton.addEventListener('click', function (e) {
   e.preventDefault();
   butter.sort(canvas);
+  renderCanvasToImage();
 });
