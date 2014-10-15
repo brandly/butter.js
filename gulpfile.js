@@ -16,7 +16,7 @@ function onError(err) {
 }
 
 gulp.task('demo', function () {
-  return gulp.src('demo/*')
+  return gulp.src(['demo/*', '!demo/style.css'])
     .pipe(gulp.dest(build));
 });
 
