@@ -136,8 +136,8 @@ input[type="radio"]:checked + .big-n-beautiful {
   line-height: 42px;
   padding: 12px 32px;
   cursor: pointer;
-  -webkit-transition: -webkit-transform 50ms;
-  transition: transform 50ms;
+  -webkit-transition: -webkit-transform color background-color 50ms;
+  transition: transform color background-color 50ms;
 }
 
 #buttery:hover {
