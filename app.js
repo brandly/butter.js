@@ -1,6 +1,7 @@
 
-var canvas = document.getElementById('sort-pixels'),
+var canvas = document.createElement('canvas'),
     context = canvas.getContext('2d'),
+    destination = document.getElementById('sort-pixels'),
     fileInput = document.getElementById('file-upload'),
     modeSelect = document.getElementById('mode-select'),
     resetButton = document.getElementById('reset-img'),
@@ -44,6 +45,8 @@ function renderImage() {
 
   context.drawImage(img, 0, 0, width, height);
   img.onload = null;
+
+  destination.src = canvas.toDataURL("image/png");
 }
 
 function getThreshold() {
