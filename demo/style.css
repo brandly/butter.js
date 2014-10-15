@@ -135,6 +135,18 @@ input[type="radio"]:checked + .big-n-beautiful {
   font-size: 32px;
   line-height: 42px;
   padding: 12px 32px;
+  cursor: pointer;
+  transition: transform 50ms;
+}
+
+#buttery:hover {
+  transform: translate(0, -2px);
+}
+
+#buttery:active {
+  transform: translate(0, 1px);
+  background-color: #C3AA0A;
+  color: #eee;
 }
 
 #reset-img {

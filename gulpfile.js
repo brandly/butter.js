@@ -1,9 +1,7 @@
 var
 gulp = require('gulp'),
-coffee = require('gulp-coffee'),
-concat = require('gulp-concat'),
-sass = require('gulp-sass'),
 gutil = require('gulp-util'),
+autoprefixer = require('gulp-autoprefixer'),
 uglify = require('gulp-uglify'),
 minify = require('gulp-minify-css'),
 path = require('path'),
@@ -22,6 +20,15 @@ gulp.task('demo', function () {
     .pipe(gulp.dest(build));
 });
 
+gulp.task('css', function () {
+  return gulp.src('demo/style.css')
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
+    .pipe(gulp.dest(build));
+});
+
 gulp.task('butter', function () {
   return gulp.src('src/butter.js')
     .pipe(gulp.dest(build));
@@ -29,6 +36,7 @@ gulp.task('butter', function () {
 
 gulp.task('build', [
   'demo',
+  'css',
   'butter'
 ]);
 
