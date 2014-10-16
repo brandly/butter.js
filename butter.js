@@ -6,21 +6,24 @@
 (function () {
   var validModes = ['black', 'bright', 'white'];
 
-  function Butter(options) {
-    options || (options = {});
-
+  function Butter(mode, threshold) {
     var defaultMode = validModes[0];
-    this.mode = options.mode || defaultMode;
+    this.mode = mode || defaultMode;
     if (validModes.indexOf(this.mode) === -1) {
-      console.log('Butter has no mode called "' + this.mode + '".')
+      console.log('Butter has no mode called "' + this.mode + '".');
       this.mode = defaultMode;
     }
 
+    // defaults
     this.threshold = {
-      black: options.blackThreshold || -10000000,
-      white: options.whiteThreshold || -6000000,
-      bright: options.brightThreshold || 30
+      black: -10000000,
+      white: -6000000,
+      bright: 30
     };
+
+    if (typeof threshold !== 'undefined' && threshold !== null) {
+      this.threshold[this.mode] = threshold;
+    }
   }
 
   Butter.prototype.sort = function (canvas, iterations) {

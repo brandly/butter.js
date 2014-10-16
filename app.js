@@ -8,8 +8,8 @@ var canvas = document.createElement('canvas'),
     butterButton = document.getElementById('buttery'),
     threshold = document.getElementById('threshold'),
     butter = new Butter(),
-    img,
-    resetImage;
+    // This will store our Image, used for loading in initial image data
+    img;
 
 var thresholdSettings = {
   black: {
@@ -31,13 +31,15 @@ var thresholdSettings = {
 
 function setImageURL(url) {
   img = new Image();
-  img.onload = renderImage;
-  resetImage = renderImage;
+  img.onload = renderImageToCanvas;
+  img.crossOrigin = 'http://profile.ak.fbcdn.net/crossdomain.xml';
   img.src = url;
 }
 
-function renderImage() {
-  var width = Math.min(900, img.width),
+var maxWidth = 900;
+function renderImageToCanvas() {
+  var width = Math.min(maxWidth, img.width),
+      // If we're downsizing the img, this'll maintain the correct aspect ratio
       height = (width / img.width) * img.height;
 
   canvas.width = width;
@@ -46,7 +48,19 @@ function renderImage() {
   context.drawImage(img, 0, 0, width, height);
   img.onload = null;
 
-  renderCanvasToImage()
+  renderCanvasToImage();
+}
+
+function readFileToImage(file) {
+  var reader = new FileReader();
+  img = new Image();
+
+  reader.onload = function () {
+    img.onload = renderImageToCanvas;
+    img.src = reader.result;
+  };
+
+  reader.readAsDataURL(file);
 }
 
 function renderCanvasToImage() {
@@ -68,17 +82,10 @@ setImageURL('wave.jpg');
 
 fileInput.addEventListener('change', function (event) {
   var target = event.target || window.event.srcElement,
-      files = target.files,
-      reader = new FileReader();
-
-  img = new Image();
-  reader.onload = function () {
-    img.onload = renderImage;
-    img.src = reader.result;
-  };
+      files = target.files;
 
   if (files.length) {
-    reader.readAsDataURL(files[0]);
+    readFileToImage(files[0]);
   }
 });
 
@@ -97,11 +104,32 @@ threshold.addEventListener('input', function () {
 
 resetButton.addEventListener('click', function (e) {
   e.preventDefault();
-  resetImage();
+  renderImageToCanvas();
 });
 
 butterButton.addEventListener('click', function (e) {
   e.preventDefault();
   butter.sort(canvas);
   renderCanvasToImage();
+});
+
+// Handle dropping files
+destination.addEventListener('drop', function (e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  var files = e.dataTransfer.files,
+      url = e.dataTransfer.getData('URL');
+
+  if (files.length) {
+    readFileToImage(files[0]);
+  } else if (url) {
+    setImageURL(url);
+  }
+});
+
+destination.addEventListener('dragover', function (e) {
+  e.stopPropagation();
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
 });
