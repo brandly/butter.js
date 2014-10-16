@@ -57,7 +57,13 @@ td {
 #sort-pixels {
   max-width: 100%;
   border: 2px solid #C3AA0A;
-  margin: 32px 0;
+  margin: 32px auto;
+  transition: max-width 100ms, opacity 100ms;
+}
+
+#sort-pixels.dropping-file {
+  opacity: 0.4;
+  max-width: 90%;
 }
 
 
