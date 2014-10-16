@@ -8,8 +8,8 @@ var canvas = document.createElement('canvas'),
     butterButton = document.getElementById('buttery'),
     threshold = document.getElementById('threshold'),
     butter = new Butter(),
-    img,
-    resetImage;
+    // This will store our Image, used for loading in initial image data
+    img;
 
 var thresholdSettings = {
   black: {
@@ -31,13 +31,14 @@ var thresholdSettings = {
 
 function setImageURL(url) {
   img = new Image();
-  img.onload = renderImage;
-  resetImage = renderImage;
+  img.onload = renderImageToCanvas;
   img.src = url;
 }
 
-function renderImage() {
-  var width = Math.min(900, img.width),
+var maxWidth = 900;
+function renderImageToCanvas() {
+  var width = Math.min(maxWidth, img.width),
+      // If we're downsizing the img, this'll maintain the correct aspect ratio
       height = (width / img.width) * img.height;
 
   canvas.width = width;
@@ -46,7 +47,7 @@ function renderImage() {
   context.drawImage(img, 0, 0, width, height);
   img.onload = null;
 
-  renderCanvasToImage()
+  renderCanvasToImage();
 }
 
 function renderCanvasToImage() {
@@ -73,7 +74,7 @@ fileInput.addEventListener('change', function (event) {
 
   img = new Image();
   reader.onload = function () {
-    img.onload = renderImage;
+    img.onload = renderImageToCanvas;
     img.src = reader.result;
   };
 
@@ -97,7 +98,7 @@ threshold.addEventListener('input', function () {
 
 resetButton.addEventListener('click', function (e) {
   e.preventDefault();
-  resetImage();
+  renderImageToCanvas();
 });
 
 butterButton.addEventListener('click', function (e) {
