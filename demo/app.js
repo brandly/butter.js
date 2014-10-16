@@ -32,6 +32,7 @@ var thresholdSettings = {
 function setImageURL(url) {
   img = new Image();
   img.onload = renderImageToCanvas;
+  img.crossOrigin = 'http://profile.ak.fbcdn.net/crossdomain.xml';
   img.src = url;
 }
 
@@ -48,6 +49,18 @@ function renderImageToCanvas() {
   img.onload = null;
 
   renderCanvasToImage();
+}
+
+function readFileToImage(file) {
+  var reader = new FileReader();
+  img = new Image();
+
+  reader.onload = function () {
+    img.onload = renderImageToCanvas;
+    img.src = reader.result;
+  };
+
+  reader.readAsDataURL(file);
 }
 
 function renderCanvasToImage() {
@@ -69,17 +82,10 @@ setImageURL('wave.jpg');
 
 fileInput.addEventListener('change', function (event) {
   var target = event.target || window.event.srcElement,
-      files = target.files,
-      reader = new FileReader();
-
-  img = new Image();
-  reader.onload = function () {
-    img.onload = renderImageToCanvas;
-    img.src = reader.result;
-  };
+      files = target.files;
 
   if (files.length) {
-    reader.readAsDataURL(files[0]);
+    readFileToImage(files[0]);
   }
 });
 
@@ -105,4 +111,25 @@ butterButton.addEventListener('click', function (e) {
   e.preventDefault();
   butter.sort(canvas);
   renderCanvasToImage();
+});
+
+// Handle dropping files
+destination.addEventListener('drop', function (e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  var files = e.dataTransfer.files,
+      url = e.dataTransfer.getData('URL');
+
+  if (files.length) {
+    readFileToImage(files[0]);
+  } else if (url) {
+    setImageURL(url);
+  }
+});
+
+destination.addEventListener('dragover', function (e) {
+  e.stopPropagation();
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
 });
