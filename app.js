@@ -118,8 +118,11 @@ destination.addEventListener('drop', function (e) {
   e.stopPropagation();
   e.preventDefault();
 
-  var files = e.dataTransfer.files,
+  var target = event.target || window.event.srcElement,
+      files = e.dataTransfer.files,
       url = e.dataTransfer.getData('URL');
+
+  removeClass(target, droppingClass);
 
   if (files.length) {
     readFileToImage(files[0]);
@@ -133,3 +136,23 @@ destination.addEventListener('dragover', function (e) {
   e.preventDefault();
   e.dataTransfer.dropEffect = 'copy';
 });
+
+var droppingClass = 'dropping-file';
+destination.addEventListener('dragenter', function (e) {
+  var target = event.target || window.event.srcElement;
+  addClass(target, droppingClass);
+});
+
+destination.addEventListener('dragleave', function (e) {
+  var target = event.target || window.event.srcElement;
+  removeClass(target, droppingClass);
+});
+
+function addClass(el, name) {
+  el.className += ' ' + name;
+}
+
+function removeClass(el, name) {
+  var exp = RegExp(name, 'g');
+  el.className = el.className.replace(exp, '');
+}
