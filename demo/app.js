@@ -7,10 +7,10 @@ var canvas = document.createElement('canvas'),
     resetButton = document.getElementById('reset-img'),
     butterButton = document.getElementById('buttery'),
     threshold = document.getElementById('threshold'),
-    butter = new Butter(),
     // This will store our Image, used for loading in initial image data
     img;
 
+var mode = 'black';
 var thresholdSettings = {
   black: {
     value: -10000000,
@@ -73,7 +73,7 @@ function getThreshold() {
 
 function updateThresholdRange() {
   ['min', 'max', 'value'].forEach(function (setting) {
-    threshold[setting] = thresholdSettings[butter.mode][setting];
+    threshold[setting] = thresholdSettings[mode][setting];
   });
 }
 
@@ -91,15 +91,14 @@ fileInput.addEventListener('change', function (event) {
 
 Array.prototype.forEach.call(document['butter-form'].mode, function (radio) {
   radio.addEventListener('click', function () {
-    butter.mode = this.value;
+    mode = this.value;
     updateThresholdRange();
   });
 });
 
 threshold.addEventListener('input', function () {
   var newValue = getThreshold();
-  butter.setThreshold(newValue);
-  thresholdSettings[butter.mode] = newValue;
+  thresholdSettings[mode] = newValue;
 })
 
 resetButton.addEventListener('click', function (e) {
@@ -107,10 +106,31 @@ resetButton.addEventListener('click', function (e) {
   renderImageToCanvas();
 });
 
+var butter = null;
 butterButton.addEventListener('click', function (e) {
   e.preventDefault();
-  butter.sort(canvas);
-  renderCanvasToImage();
+  // TODO: disable button and display loading indicator
+
+  var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  butter = new Worker('butter-worker.js');
+
+  butter.postMessage({
+    imageData: imageData,
+    width: canvas.width,
+    height: canvas.height,
+    mode: mode,
+    threshold: thresholdSettings[mode]
+  });
+
+  function afterSort(e) {
+    context.putImageData(e.data.imageData, 0, 0);
+    renderCanvasToImage();
+    butter.removeEventListener('message', afterSort, false);
+    butter = null;
+  };
+
+  // it'll message us back when it's done
+  butter.addEventListener('message', afterSort, false);
 });
 
 // Handle dropping files

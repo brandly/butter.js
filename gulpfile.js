@@ -30,7 +30,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('butter', function () {
-  return gulp.src('src/butter.js')
+  return gulp.src('src/*.js')
     .pipe(gulp.dest(build));
 });
 
