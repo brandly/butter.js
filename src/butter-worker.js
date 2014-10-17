@@ -14,5 +14,4 @@ self.addEventListener('message', function(e) {
       sortedImage = butter.sortImageData(imageData, width, height, iterations);
 
   self.postMessage({imageData: sortedImage});
-  self.close();
 }, false);
