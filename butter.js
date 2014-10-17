@@ -26,20 +26,26 @@
     }
   }
 
-  Butter.prototype.sort = function (canvas, iterations) {
-    this.canvas = canvas;
-    if (!this.canvas) {
+  Butter.prototype.sort = function sort(canvas, iterations) {
+    if (!canvas) {
       throw 'Butter needs a <canvas> to sort';
     }
-    this.context = this.canvas.getContext('2d');
+    var context = canvas.getContext('2d'),
+        width = canvas.width,
+        height = canvas.height,
+        // Get the current data
+        imageData = context.getImageData(0, 0, width, height),
+        // And sort it
+        sortedImage = sortImageData(imageData, width, height, iterations);
 
-    this.height = this.canvas.height;
-    this.width = this.canvas.width;
+    context.putImageData(sortedImage, 0, 0);
+  };
 
+  Butter.prototype.sortImageData = function sortImageData(imageData, width, height, iterations) {
+    this.imageData = imageData;
+    this.width = width;
+    this.height = height;
     iterations || (iterations = 1);
-
-    // Read in the image currently on the canvas
-    this.imageData = this.context.getImageData(0, 0, this.width, this.height);
 
     for (var i = 0; i < iterations; i++) {
 
@@ -52,7 +58,7 @@
       }
     }
 
-    this.context.putImageData(this.imageData, 0, 0);
+    return this.imageData;
   };
 
   Butter.prototype.setThreshold = function setThreshold(value) {
@@ -61,54 +67,52 @@
 
   Butter.prototype.sortColumn = function sortColumn(x) {
     var ranges = this.getRangesForColumn(x),
-        range, width, unsorted, sorted;
+        range, width, pixelData;
 
     // For each range...
     for (var i = 0; i < ranges.length; i++) {
       range = ranges[i];
       width = range.end - range.start;
 
-      unsorted = new Array(width);
-      sorted = new Array(width);
+      pixelData = new Array(width);
 
       // Get all the pixels in that range
       for (var j = 0; j < width; j++) {
-        unsorted[j] = this.getPixelValue(x, range.start + j);
+        pixelData[j] = this.getPixelValue(x, range.start + j);
       }
 
       // Sort them!
-      sorted = unsorted.sort();
+      pixelData.sort();
 
       // And put the new pixels back
       for (var j = 0; j < width; j++) {
-        this.setPixelValue(x, (range.start + j), sorted[j]);
+        this.setPixelValue(x, (range.start + j), pixelData[j]);
       }
     }
   };
 
   Butter.prototype.sortRow = function sortRow(y) {
     var ranges = this.getRangesForRow(y),
-        range, width, unsorted, sorted;
+        range, width, pixelData;
 
     // For each range...
     for (var i = 0; i < ranges.length; i++) {
       range = ranges[i];
       width = range.end - range.start;
 
-      unsorted = new Array(width);
-      sorted = new Array(width);
+      pixelData = new Array(width);
 
       // Get all the pixels in that range
       for (var j = 0; j < width; j++) {
-        unsorted[j] = this.getPixelValue(range.start + j, y);
+        pixelData[j] = this.getPixelValue(range.start + j, y);
       }
 
       // Sort them!
-      sorted = unsorted.sort();
+      pixelData.sort();
 
       // And put the new pixels back
       for (var j = 0; j < width; j++) {
-        this.setPixelValue((range.start + j), y, sorted[j]);
+        this.setPixelValue((range.start + j), y, pixelData[j]);
       }
     }
   };
