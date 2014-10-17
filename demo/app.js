@@ -106,14 +106,19 @@ resetButton.addEventListener('click', function (e) {
   renderImageToCanvas();
 });
 
-var butter = null;
+var butter = new Worker('butter-worker.js');
+
+// it'll message us back when it's done sorting
+butter.addEventListener('message', function afterSort(e) {
+  context.putImageData(e.data.imageData, 0, 0);
+  renderCanvasToImage();
+}, false);
+
 butterButton.addEventListener('click', function (e) {
   e.preventDefault();
   // TODO: disable button and display loading indicator
 
   var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-  butter = new Worker('butter-worker.js');
-
   butter.postMessage({
     imageData: imageData,
     width: canvas.width,
@@ -121,16 +126,6 @@ butterButton.addEventListener('click', function (e) {
     mode: mode,
     threshold: thresholdSettings[mode]
   });
-
-  function afterSort(e) {
-    context.putImageData(e.data.imageData, 0, 0);
-    renderCanvasToImage();
-    butter.removeEventListener('message', afterSort, false);
-    butter = null;
-  };
-
-  // it'll message us back when it's done
-  butter.addEventListener('message', afterSort, false);
 });
 
 // Handle dropping files
