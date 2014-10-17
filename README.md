@@ -14,7 +14,7 @@ var butter = new Butter();
 butter.sort(canvas);
 ```
 
-For convenience, you can sort multiple times in quick successions
+For convenience, you can sort multiple times in quick succession
 ```js
 butter.sort(canvas, 3);
 ```
