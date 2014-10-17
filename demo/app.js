@@ -98,7 +98,7 @@ Array.prototype.forEach.call(document['butter-form'].mode, function (radio) {
 
 threshold.addEventListener('input', function () {
   var newValue = getThreshold();
-  thresholdSettings[mode] = newValue;
+  thresholdSettings[mode].value = newValue;
 })
 
 resetButton.addEventListener('click', function (e) {
@@ -124,7 +124,7 @@ butterButton.addEventListener('click', function (e) {
     width: canvas.width,
     height: canvas.height,
     mode: mode,
-    threshold: thresholdSettings[mode]
+    threshold: thresholdSettings[mode].value
   });
 });
 

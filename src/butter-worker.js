@@ -6,11 +6,12 @@ self.addEventListener('message', function(e) {
       width = data.width,
       height = data.height,
       iterations = data.iterations,
-      options = data.options;
+      mode = data.mode,
+      threshold = data.threshold;
 
   // TODO: ensure imageData, width, height
 
-  var butter = new Butter(options),
+  var butter = new Butter(mode, threshold),
       sortedImage = butter.sortImageData(imageData, width, height, iterations);
 
   self.postMessage({imageData: sortedImage});
