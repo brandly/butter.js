@@ -27,20 +27,18 @@
   }
 
   Butter.prototype.sort = function sort(canvas, iterations) {
-    this.canvas = canvas;
-    if (!this.canvas) {
+    if (!canvas) {
       throw 'Butter needs a <canvas> to sort';
     }
-    this.context = this.canvas.getContext('2d');
-
-    var width = this.canvas.width,
-        height = this.canvas.height,
+    var context = canvas.getContext('2d'),
+        width = canvas.width,
+        height = canvas.height,
         // Get the current data
-        imageData = this.context.getImageData(0, 0, width, height),
+        imageData = context.getImageData(0, 0, width, height),
         // And sort it
-        sortedImage = this.sortImageData(imageData, width, height, iterations);
+        sortedImage = sortImageData(imageData, width, height, iterations);
 
-    this.context.putImageData(sortedImage, 0, 0);
+    context.putImageData(sortedImage, 0, 0);
   };
 
   Butter.prototype.sortImageData = function sortImageData(imageData, width, height, iterations) {
