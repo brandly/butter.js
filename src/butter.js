@@ -61,54 +61,52 @@
 
   Butter.prototype.sortColumn = function sortColumn(x) {
     var ranges = this.getRangesForColumn(x),
-        range, width, unsorted, sorted;
+        range, width, pixelData;
 
     // For each range...
     for (var i = 0; i < ranges.length; i++) {
       range = ranges[i];
       width = range.end - range.start;
 
-      unsorted = new Array(width);
-      sorted = new Array(width);
+      pixelData = new Array(width);
 
       // Get all the pixels in that range
       for (var j = 0; j < width; j++) {
-        unsorted[j] = this.getPixelValue(x, range.start + j);
+        pixelData[j] = this.getPixelValue(x, range.start + j);
       }
 
       // Sort them!
-      sorted = unsorted.sort();
+      pixelData.sort();
 
       // And put the new pixels back
       for (var j = 0; j < width; j++) {
-        this.setPixelValue(x, (range.start + j), sorted[j]);
+        this.setPixelValue(x, (range.start + j), pixelData[j]);
       }
     }
   };
 
   Butter.prototype.sortRow = function sortRow(y) {
     var ranges = this.getRangesForRow(y),
-        range, width, unsorted, sorted;
+        range, width, pixelData;
 
     // For each range...
     for (var i = 0; i < ranges.length; i++) {
       range = ranges[i];
       width = range.end - range.start;
 
-      unsorted = new Array(width);
-      sorted = new Array(width);
+      pixelData = new Array(width);
 
       // Get all the pixels in that range
       for (var j = 0; j < width; j++) {
-        unsorted[j] = this.getPixelValue(range.start + j, y);
+        pixelData[j] = this.getPixelValue(range.start + j, y);
       }
 
       // Sort them!
-      sorted = unsorted.sort();
+      pixelData.sort();
 
       // And put the new pixels back
       for (var j = 0; j < width; j++) {
-        this.setPixelValue((range.start + j), y, sorted[j]);
+        this.setPixelValue((range.start + j), y, pixelData[j]);
       }
     }
   };
