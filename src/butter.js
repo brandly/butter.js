@@ -26,20 +26,28 @@
     }
   }
 
-  Butter.prototype.sort = function (canvas, iterations) {
+  Butter.prototype.sort = function sort(canvas, iterations) {
     this.canvas = canvas;
     if (!this.canvas) {
       throw 'Butter needs a <canvas> to sort';
     }
     this.context = this.canvas.getContext('2d');
 
-    this.height = this.canvas.height;
-    this.width = this.canvas.width;
+    var width = this.canvas.width,
+        height = this.canvas.height,
+        // Get the current data
+        imageData = this.context.getImageData(0, 0, width, height),
+        // And sort it
+        sortedImage = this.sortImageData(imageData, width, height, iterations);
 
+    this.context.putImageData(sortedImage, 0, 0);
+  };
+
+  Butter.prototype.sortImageData = function sortImageData(imageData, width, height, iterations) {
+    this.imageData = imageData;
+    this.width = width;
+    this.height = height;
     iterations || (iterations = 1);
-
-    // Read in the image currently on the canvas
-    this.imageData = this.context.getImageData(0, 0, this.width, this.height);
 
     for (var i = 0; i < iterations; i++) {
 
@@ -52,7 +60,7 @@
       }
     }
 
-    this.context.putImageData(this.imageData, 0, 0);
+    return this.imageData;
   };
 
   Butter.prototype.setThreshold = function setThreshold(value) {
