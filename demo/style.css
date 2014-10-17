@@ -188,6 +188,7 @@ input[type='range'] {
 
 input[type='range']::-moz-range-track {
   -moz-appearance: none;
+  border: none;
   background-color: #C3AA0A;
   height: 30px;
   border-radius: 4px;
@@ -204,6 +205,7 @@ input[type='range']::-webkit-slider-thumb {
 
 input[type='range']::-moz-range-thumb {
   -moz-appearance: none;
+  border: none;
   background-color: #FFE01B;
   height: 25px;
   width: 25px;
