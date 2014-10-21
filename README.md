@@ -2,6 +2,10 @@
 
 pixel sorting for canvas
 
+```shell
+$ npm install --save butter.js
+```
+
 ## general idea
 
 Take a canvas. Define a filter for which pixels get sorted and which don't. Rows and columns of pixels that pass that filter will be sorted based on their color value.
