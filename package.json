@@ -4,7 +4,7 @@
   "author": "Matthew Brandly",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.8.8",
     "gulp-concat": "^2.1.7",
     "gulp-htmlbuild": "^0.1.1",
