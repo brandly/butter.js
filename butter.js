@@ -5,9 +5,9 @@
 
 (function () {
   var validModes = ['black', 'bright', 'white'];
+  var defaultMode = validModes[0];
 
   function Butter(mode, threshold) {
-    var defaultMode = validModes[0];
     this.mode = mode || defaultMode;
     if (validModes.indexOf(this.mode) === -1) {
       console.log('Butter has no mode called "' + this.mode + '".');

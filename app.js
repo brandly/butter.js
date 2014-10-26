@@ -7,6 +7,7 @@ var canvas = document.createElement('canvas'),
     resetButton = document.getElementById('reset-img'),
     butterButton = document.getElementById('buttery'),
     threshold = document.getElementById('threshold'),
+    imageWrapper = document.getElementById('image-wrapper'),
     // This will store our Image, used for loading in initial image data
     img;
 
@@ -112,11 +113,16 @@ var butter = new Worker('butter-worker.js');
 butter.addEventListener('message', function afterSort(e) {
   context.putImageData(e.data.imageData, 0, 0);
   renderCanvasToImage();
+
+  removeClass(imageWrapper, 'loading');
+  butterButton.disabled = ''
 }, false);
 
 butterButton.addEventListener('click', function (e) {
   e.preventDefault();
-  // TODO: disable button and display loading indicator
+
+  addClass(imageWrapper, 'loading');
+  butterButton.disabled = 'disabled'
 
   var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
   butter.postMessage({
