@@ -36,7 +36,7 @@
         // Get the current data
         imageData = context.getImageData(0, 0, width, height),
         // And sort it
-        sortedImage = sortImageData(imageData, width, height, iterations);
+        sortedImage = this.sortImageData(imageData, width, height, iterations);
 
     context.putImageData(sortedImage, 0, 0);
   };
