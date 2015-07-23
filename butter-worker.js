@@ -1,18 +1,1 @@
-importScripts('butter.js');
-
-self.addEventListener('message', function(e) {
-  var data = e.data,
-      imageData = data.imageData,
-      width = data.width,
-      height = data.height,
-      iterations = data.iterations,
-      mode = data.mode,
-      threshold = data.threshold;
-
-  // TODO: ensure imageData, width, height
-
-  var butter = new Butter(mode, threshold),
-      sortedImage = butter.sortImageData(imageData, width, height, iterations);
-
-  self.postMessage({imageData: sortedImage});
-}, false);
+importScripts("butter.js"),self.addEventListener("message",function(t){var e=t.data,a=e.imageData,s=e.width,i=e.height,r=e.iterations,o=e.mode,d=e.threshold,g=new Butter(o,d),m=g.sortImageData(a,s,i,r);self.postMessage({imageData:m})},!1);
