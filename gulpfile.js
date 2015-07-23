@@ -7,7 +7,9 @@ minify = require('gulp-minify-css'),
 path = require('path'),
 express = require('express'),
 
-build = gutil.env.gh ? './gh-pages/' : './build/';
+build = gutil.env.gh ? './gh-pages/' : './build/',
+uglify = gutil.env.gh ? uglify : gutil.noop,
+minify = gutil.env.gh ? minify : gutil.noop;
 
 function onError(err) {
   gutil.log(err);
@@ -15,28 +17,37 @@ function onError(err) {
   this.emit('end');
 }
 
-gulp.task('demo', function () {
-  return gulp.src(['demo/*', '!demo/style.css'])
+gulp.task('demo:static', function () {
+  return gulp.src(['demo/*', '!demo/*.css'])
     .pipe(gulp.dest(build));
 });
 
-gulp.task('css', function () {
-  return gulp.src('demo/style.css')
+gulp.task('demo:css', function () {
+  return gulp.src('demo/*.css')
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
     }))
+    .pipe(minify())
+    .pipe(gulp.dest(build));
+});
+
+gulp.task('demo:js', function () {
+  return gulp.src('demo/*.js')
+    .pipe(uglify())
     .pipe(gulp.dest(build));
 });
 
 gulp.task('butter', function () {
   return gulp.src('src/*.js')
+    .pipe(uglify())
     .pipe(gulp.dest(build));
 });
 
 gulp.task('build', [
-  'demo',
-  'css',
+  'demo:static',
+  'demo:css',
+  'demo:js',
   'butter'
 ]);
 
